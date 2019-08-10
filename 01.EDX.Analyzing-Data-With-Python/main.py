@@ -56,5 +56,6 @@ df.columns = [
 # to modify the dataframe, you have to use inplace = true
 df.dropna(subset=["price"], axis=0, inplace=True)
 
+
 df.to_csv("./data/changed-85.csv", index=True)
 
