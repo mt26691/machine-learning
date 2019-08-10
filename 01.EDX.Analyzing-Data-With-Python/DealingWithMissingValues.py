@@ -39,8 +39,8 @@ print(df[["normalized-losses"]].describe())
 mean = df["normalized-losses"].mean()
 print(mean)
 
-# Replace NaN value with mean
-df["normalized-losses"].replace(np.nan, mean)
+# Replace NaN value with mean, if we don't set inplace = True, it will not change the dataframe
+df["normalized-losses"].replace(np.nan, mean, inplace = True)
 # we can replace the missing value of the average entire of the missing value like mean
 # 1 Calculate mean of the normalized losses
 # mean = df["normalized-losses"].mean()
