@@ -30,6 +30,16 @@ df.columns = [
     "highway-mpg",
     "price",
 ]
-print(df.head(5))
 
-df.to_csv("./data/changed-85.csv")
+# drop missing value if value =  None
+# df.dropna(subset=["price"], axis=0)
+# print(df.head(5))
+# print(df.describe(include="all"))
+# print(df.columns)
+
+print(df.dtypes)
+
+# describe specific columns
+print(df[["length", "compression-ratio"]].describe())
+print(df.info)
+df.to_csv("./data/changed-85.csv", index = False)
