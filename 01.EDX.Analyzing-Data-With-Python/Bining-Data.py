@@ -1,7 +1,9 @@
 import pandas as pd
 import numpy as np
+import matplotlib as plt
+from matplotlib import pyplot
 
-df = pd.read_csv("./data/changed-85-nan.csv", header=None)
+df = pd.read_csv("./data/changed-85-dealing-with-missing-values.csv")
 
 df.columns = [
     "symboling",
@@ -31,6 +33,15 @@ df.columns = [
     "highway-mpg",
     "price",
 ]
+
+df["price"]=df["price"].astype(float, copy=True)
+
+plt.pyplot.hist(df["price"])
+plt.pyplot.xlabel("price")
+plt.pyplot.ylabel("count")
+plt.pyplot.title("price bins")
+
+plt.pyplot.show()
 
 bins = np.linspace(min(df["price"]), max(df["price"]), 4)
 print(bins)

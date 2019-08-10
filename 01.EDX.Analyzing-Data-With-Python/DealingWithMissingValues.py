@@ -60,6 +60,10 @@ df["normalized-losses"].replace(np.nan, mean, inplace = True)
 avg_stroke=df['stroke'].astype('float').mean(axis=0)
 df['stroke'].replace(np.nan, avg_stroke, inplace = True)
 
+avg_horsepower=df['horsepower'].astype('float').mean(axis=0)
+print("----------------horsepower mean = " + (str)(avg_horsepower))
+df['horsepower'].replace(np.nan, avg_horsepower, inplace = True)
+
 print(df['stroke'].value_counts())
 
 # We can see that four doors are the most common type. 
@@ -80,5 +84,5 @@ df.reset_index(drop=True, inplace=True)
 # 1 Calculate mean of the normalized losses
 # mean = df["normalized-losses"].mean()
 # print(mean)
-df.to_csv("./data/changed-85-dealing-with-missing-values.csv", index=True)
+df.to_csv("./data/changed-85-dealing-with-missing-values.csv", index=False)
 
