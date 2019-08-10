@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
 
-df = pd.read_csv("./data/changed-85-nan.csv", header=None)
+df = pd.read_csv("./data/imports-85.csv", header=None)
 
 df.columns = [
     "symboling",
@@ -31,16 +31,51 @@ df.columns = [
     "highway-mpg",
     "price",
 ]
+df.replace("?", np.nan, inplace = True)
+
+# print missing data
+missing_data = df.isnull()
+print(missing_data.head(5))
+
+#count missing columns
+for column in missing_data.columns.values.tolist():
+    print(column)
+    print(missing_data[column].value_counts())
+    print("-----------")
 
 # Pandas give us the function dataframe.replace(missing_value, new_value)
+# replace "?" value to NaN value
+# convert to type float
+df["normalized-losses"] = df["normalized-losses"].astype("float")
+
 # for example, we can deal with normalized-losses columns
 print(df[["normalized-losses"]].describe())
 
 mean = df["normalized-losses"].mean()
 print(mean)
 
-# Replace NaN value with mean, if we don't set inplace = True, it will not change the dataframe
+# # Replace NaN value with mean, if we don't set inplace = True, it will not change the dataframe
 df["normalized-losses"].replace(np.nan, mean, inplace = True)
+
+avg_stroke=df['stroke'].astype('float').mean(axis=0)
+df['stroke'].replace(np.nan, avg_stroke, inplace = True)
+
+print(df['stroke'].value_counts())
+
+# We can see that four doors are the most common type. 
+# We can also use the ".idxmax()" method to calculate for us the most common type automatically:
+print(df['num-of-doors'].value_counts())
+print(df['num-of-doors'].value_counts().idxmax())
+# replace numb of doors by four
+df["num-of-doors"].replace(np.nan, "four", inplace=True)
+
+#drop all rows that do not have price data, since price is the thing we want to predict, unknown price means nothing
+# we don't need it.
+df.dropna(subset=["price"], axis=0, inplace=True)
+
+# reset index, because we droped two rows
+df.reset_index(drop=True, inplace=True)
+
 # we can replace the missing value of the average entire of the missing value like mean
 # 1 Calculate mean of the normalized losses
 # mean = df["normalized-losses"].mean()

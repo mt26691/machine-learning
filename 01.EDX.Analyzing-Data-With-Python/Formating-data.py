@@ -36,8 +36,8 @@ df.columns = [
 # forexample, converting "mpg" to L/100km in pandas
 
 print(df["city-mpg"].describe())
-df["city-mpg"] = 235 / df["city-mpg"]
-df.rename(columns={"city-mpg": "city-L/100km"}, inplace = True)
+df["city-L/100km"] = 235 / df["city-mpg"]
+# df.rename(columns={"city-mpg": "city-L/100km"}, inplace = True)
 
 df["normalized-losses"] = df["normalized-losses"].astype("float")
 print(df["normalized-losses"].describe())
