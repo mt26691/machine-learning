@@ -32,10 +32,13 @@ df.columns = [
     "price",
 ]
 
-# Simple feature scaling in python
+# Simple feature scaling approach
 # newData = oldData/maxOfData
-print("Max length: " + (str)(df["length"].max()))
-df["length"] = df["length"] / df["length"].max()
+# print("Max length: " + (str)(df["length"].max()))
+# df["length"] = df["length"] / df["length"].max()
+
+# zscore approach
+df["length"] = (df["length"] - df["length"].mean())/ df["length"].std()
 
 df.to_csv("./data/changed-85-normalize-data.csv", index=True)
 
