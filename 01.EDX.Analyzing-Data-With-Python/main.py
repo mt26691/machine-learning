@@ -37,9 +37,24 @@ df.columns = [
 # print(df.describe(include="all"))
 # print(df.columns)
 
-print(df.dtypes)
+# print(df.dtypes)
 
 # describe specific columns
-print(df[["length", "compression-ratio"]].describe())
-print(df.info)
-df.to_csv("./data/changed-85.csv", index = False)
+# print(df[["length", "compression-ratio"]].describe())
+# print(df.info)
+# print(df["length"])
+
+# How to drop missing values in python?
+# use dataframes.dropna()
+# http://prntscr.com/oqu52q
+# axis=0 drop entire row
+# axis=1 drop entire column
+
+# this code does not change the data frame
+# df.dropna(subset=["price"], axis=0)
+
+# to modify the dataframe, you have to use inplace = true
+df.dropna(subset=["price"], axis=0, inplace=True)
+
+df.to_csv("./data/changed-85.csv", index=True)
+
