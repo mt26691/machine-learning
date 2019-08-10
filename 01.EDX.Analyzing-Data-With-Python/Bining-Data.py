@@ -33,6 +33,8 @@ df.columns = [
 ]
 
 bins = np.linspace(min(df["price"]), max(df["price"]), 4)
+print(bins)
 group_names = ["Low", "Medium", "High"]
+df["price-binned"] = pd.cut(df["price"], bins, labels=group_names, include_lowest=True)
 df.to_csv("./data/changed-85-bining-data.csv", index=True)
 
