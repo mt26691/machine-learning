@@ -64,42 +64,25 @@ df["num-of-doors"].replace(np.nan, "four", inplace=True)
 # unknown price means nothing
 # we don't need it.
 df.dropna(subset=["price"], axis=0, inplace=True)
-drive_wheels_counts = df["drive-wheels"].value_counts()
-drive_wheels_counts.rename(columns={"drive-wheels":"value_counts"}, inplace = True)
-drive_wheels_counts.index.name = 'drive-wheels'
 
 df['horsepower']=df['horsepower'].astype('float')
 df["price"] = df["price"].astype("int")
 
-df_anova = df[["make", "price"]]
-grouped_anova = df_anova.groupby(["make"])
-anova_results_1 = stats.f_oneway(grouped_anova.get_group("honda")["price"], grouped_anova.get_group("subaru")["price"])
-anova_results_2 = stats.f_oneway(grouped_anova.get_group("honda")["price"], grouped_anova.get_group("jaguar")["price"])
-
-# We have a strong correlation between categorical variables, 
-# if ANOVA test give us large F value and small p value (<0.05)
-print("Correlation between honda and subaru")
-print(anova_results_1)
-print("Correlation between honda and jaguar")
-print(anova_results_2)
 pearson_coef, p_value = stats.pearsonr(df["horsepower"], df["price"])
 
+print('Correlation coefficient:')
+# close to +1: large positive relationship
+# close to -1: large negative relationship
+# close to 0: no relationship
 print(pearson_coef)
+print('P-value:')
+
+# < 0.001 strong certainly in result
+# < 0.05 moderate certainly in result
+# < 0.1 weak certainly in result
+# > 0.1 no certainly in result
 print(p_value)
-# df_test = df[["drive-wheels", "body-style", "price"]]
-# df_group = df_test.groupby(["drive-wheels", "body-style"], as_index = False)
-# df_pivot = df_group.mean().pivot(index = "drive-wheels", columns = "body-style")
-# print(df_group.mean())
-# print('-------------')
-# print(df_pivot)
 
-# #heat map
-
-# plt.pyplot.pcolor(df_pivot, cmap='RdBu')
-# plt.pyplot.colorbar()
-# plt.pyplot.show()
-
-# reset index, because we droped two rows
 df.reset_index(drop=True, inplace=True)
 
 df.to_csv("./data/changed-85-dealing-with-missing-values.csv", index=False)
