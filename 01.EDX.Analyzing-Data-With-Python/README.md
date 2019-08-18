@@ -11,5 +11,6 @@ pip install -r requirements.txt
 pip install pandas
 pip install scipy
 pip install seaborn
+pip install scikit-learn
 
 python -m pip install --user numpy scipy matplotlib ipython jupyter pandas sympy nose
